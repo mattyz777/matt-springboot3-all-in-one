@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      # http://localhost:8080/h2
+      path: /h2
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db/h2_ddl_tb_account.sql
+      data-locations:
+        - classpath:db/h2_dml_tb_account.sql
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # Tell MP to use MySQL style increment/logic
+      id-type: auto

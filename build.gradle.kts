@@ -1,8 +1,6 @@
 plugins {
     id("java")
-    // specify springboot dependencies version
     id("org.springframework.boot") version "3.5.13"
-    // bom version
     id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -18,6 +16,7 @@ val owaspHtmlSanitizerVersion = "20260313.1"
 val mybatisPlusVersion = "3.5.9"
 val mysqlConnectorVersion = "8.3.0"
 val lombokVersion = "1.18.44"
+val h2Version = "2.4.240"
 
 /**
  * compileOnly          -> needed only at compile time (not included at runtime)
@@ -36,6 +35,9 @@ dependencies {
 
     // MySQL Driver
     implementation("com.mysql:mysql-connector-j:$mysqlConnectorVersion")
+
+    // H2 Database (for development and testing)
+    runtimeOnly("com.h2database:h2:${h2Version}")
 
     // lombok
     compileOnly("org.projectlombok:lombok:$lombokVersion")
