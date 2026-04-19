@@ -2,7 +2,6 @@ package com.matt.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.matt.dto.request.PagingRequestDTO;
-import com.matt.dto.response.PagingResponseDTO;
 import com.matt.dto.response.ResponseDTO;
 import com.matt.entity.Account;
 import com.matt.service.AccountService;
@@ -62,18 +61,11 @@ public class AccountController {
                 pagingRequest.getPageSize()
         );
 
-//        PagingResponseDTO<Account> pagingResponse = new PagingResponseDTO<>(
-//                (int) page.getCurrent(),
-//                (int) page.getSize(),
-//                page.getTotal(),
-//                page.getRecords()
-//        );
-
         return ResponseDTO.success(page);
     }
 
     @PostMapping("/page/user/{userId}")
-    public ResponseDTO<PagingResponseDTO<Account>> getPageByUserId(
+    public ResponseDTO<Page<Account>> getPageByUserId(
             @PathVariable Long userId,
             @RequestBody PagingRequestDTO<Void> pagingRequest) {
         Page<Account> page = accountService.getAccountPageByUserId(
@@ -82,13 +74,6 @@ public class AccountController {
                 pagingRequest.getPageSize()
         );
 
-        PagingResponseDTO<Account> pagingResponse = new PagingResponseDTO<>(
-                (int) page.getCurrent(),
-                (int) page.getSize(),
-                page.getTotal(),
-                page.getRecords()
-        );
-
-        return ResponseDTO.success(pagingResponse);
+        return ResponseDTO.success(page);
     }
 }
