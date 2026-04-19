@@ -1,6 +1,7 @@
 package com.matt.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.matt.entity.Account;
 import com.matt.repository.AccountRepository;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -50,5 +50,19 @@ public class AccountServiceImpl extends ServiceImpl<AccountRepository, Account> 
         account.setCreatedAt(System.currentTimeMillis());
         account.setUpdatedAt(System.currentTimeMillis());
         return this.save(account);
+    }
+
+    @Override
+    public Page<Account> getAccountPage(Integer currentPage, Integer pageSize) {
+        Page<Account> page = new Page<>(currentPage, pageSize);
+        return this.page(page);
+    }
+
+    @Override
+    public Page<Account> getAccountPageByUserId(Long userId, Integer currentPage, Integer pageSize) {
+        Page<Account> page = new Page<>(currentPage, pageSize);
+        LambdaQueryWrapper<Account> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Account::getUserId, userId);
+        return this.page(page, wrapper);
     }
 }

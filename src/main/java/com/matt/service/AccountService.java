@@ -1,5 +1,6 @@
 package com.matt.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.matt.entity.Account;
 
@@ -15,4 +16,8 @@ public interface AccountService extends IService<Account> {
     boolean updateBalance(Long accountId, BigDecimal amount);
 
     boolean addAccount(Account account);
+
+    Page<Account> getAccountPage(Integer currentPage, Integer pageSize);
+
+    Page<Account> getAccountPageByUserId(Long userId, Integer currentPage, Integer pageSize);
 }

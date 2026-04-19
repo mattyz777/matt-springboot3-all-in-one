@@ -14,6 +14,7 @@ repositories {
 // define version number
 val owaspHtmlSanitizerVersion = "20260313.1"
 val mybatisPlusVersion = "3.5.9"
+val mybatisPlusJsqlparserVersion = "3.5.16"
 val mysqlConnectorVersion = "8.3.0"
 val lombokVersion = "1.18.44"
 val h2Version = "2.4.240"
@@ -32,6 +33,7 @@ dependencies {
 
     // MyBatis Plus
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:$mybatisPlusVersion")
+    implementation("com.baomidou:mybatis-plus-jsqlparser:$mybatisPlusJsqlparserVersion")
 
     // MySQL Driver
     implementation("com.mysql:mysql-connector-j:$mysqlConnectorVersion")
