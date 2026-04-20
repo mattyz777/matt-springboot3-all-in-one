@@ -6,7 +6,7 @@ import org.owasp.html.Sanitizers;
 
 public class XssUtil {
     /**
-     * XSS cases are handled as below.
+     * XSS cases are handled as below based on owasp-java-html-sanitizer
      *
      * general rules for html sanitization
      *  - <script>xxx</script>                               ->  element is removed

@@ -7,36 +7,20 @@ import java.math.BigDecimal;
 
 @Data
 @TableName("tb_account")
-public class Account implements Serializable {
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
-
-    @TableField("user_id")
+public class Account extends BaseModel implements Serializable {
+    /**
+     * User ID associated with this account
+     */
     private Long userId;
 
-    @TableField("coin")
+    /**
+     * Cryptocurrency symbol (e.g., BTC, ETH, USDT)
+     */
     private String coin;
 
-    @TableField("amount")
-    private BigDecimal amount;
-
     /**
-     * @TableLogic logic delete - 1:deleted, 0: not deleted
+     * Account balance with high precision
      */
-    @TableField("is_deleted")
-    @TableLogic
-    private Integer deleted;
-
-    @TableField("created_by")
-    private Long createdBy;
-
-    @TableField("updated_by")
-    private Long updatedBy;
-
-    @TableField("created_at")
-    private Long createdAt;
-
-    @TableField("updated_at")
-    private Long updatedAt;
+    private BigDecimal amount;
 }
 

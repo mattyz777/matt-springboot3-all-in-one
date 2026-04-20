@@ -143,7 +143,8 @@ public class AccountControllerTest {
     @Order(2)
     @DisplayName("getPage - 测试分页查询第一页（无条件）")
     void testGetPage_NoCondition() throws Exception {
-        PagingRequest<AccountQueryRequest> request = new PagingRequest<>(1, 5, new AccountQueryRequest());
+        int pageSize = 5;
+        PagingRequest<AccountQueryRequest> request = new PagingRequest<>(1, pageSize, new AccountQueryRequest());
 
         MvcResult result = mockMvc.perform(post("/account/query")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -160,8 +161,9 @@ public class AccountControllerTest {
         assertNotNull(response);
         assertEquals(Constant.RESPONSE_SUCCESS, response.getCode());
         assertNotNull(response.getData());
-        assertEquals(5, response.getData().getRecords().size());
-        assertTrue(response.getData().getTotal() > 0);
+        assertEquals(8, response.getData().getTotal());
+        assertEquals(2, response.getData().getPages());
+        assertEquals(pageSize, response.getData().getRecords().size());
     }
 
     @Test

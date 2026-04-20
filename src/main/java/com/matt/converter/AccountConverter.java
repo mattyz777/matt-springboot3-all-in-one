@@ -62,6 +62,7 @@ public class AccountConverter {
         response.setCurrentPage((int) accounts.getCurrent());
         response.setPageSize((int) accounts.getSize());
         response.setTotal(accounts.getTotal());
+        response.setPages(accounts.getPages());
         response.setRecords(accounts.getRecords().stream()
                 .map(AccountConverter::toDTO)
                 .toList());

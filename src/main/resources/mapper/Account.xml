@@ -5,6 +5,7 @@
     <select id="listAccounts" resultType="com.matt.entity.Account">
         SELECT * FROM tb_account
         <where>
+            is_deleted = 0
             <if test="req.creatorId != null">
                 AND created_by = #{req.creatorId}
             </if>

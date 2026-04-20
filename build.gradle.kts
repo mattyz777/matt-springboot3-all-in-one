@@ -51,7 +51,7 @@ dependencies {
     // html-sanitizer
     implementation("com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:$owaspHtmlSanitizerVersion")
 
-    //
+    // web test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
