@@ -1,23 +1,20 @@
 package com.matt.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.matt.dto.request.AccountCreateRequest;
+import com.matt.dto.request.AccountQueryRequest;
+import com.matt.dto.request.AccountUpdateRequest;
+import com.matt.dto.request.PagingRequest;
+import com.matt.dto.response.AccountResponse;
+import com.matt.dto.response.PagingResponse;
 import com.matt.entity.Account;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountService extends IService<Account> {
-
-    Account getAccountByUserIdAndCoin(Long userId, String coin);
-
-    List<Account> getAccountsByUserId(Long userId);
-
-    boolean updateBalance(Long accountId, BigDecimal amount);
-
-    boolean addAccount(Account account);
-
-    Page<Account> getAccountPage(Integer currentPage, Integer pageSize);
-
-    Page<Account> getAccountPageByUserId(Long userId, Integer currentPage, Integer pageSize);
+    Long createAccount(AccountCreateRequest account);
+    Boolean updateAccount(Long id, AccountUpdateRequest account);
+    Long deleteAccount(Long id);
+    AccountResponse getAccountById(Long id);
+    PagingResponse<AccountResponse> getAccountPage(PagingRequest<AccountQueryRequest> request);
 }

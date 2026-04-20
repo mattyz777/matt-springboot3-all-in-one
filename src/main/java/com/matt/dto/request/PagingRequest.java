@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 //@NoArgsConstructor
-public class PagingRequestDTO<T> {
+public class PagingRequest<T> {
     private Integer currentPage;
     private Integer pageSize;
     private T requestBody;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.matt.repository.AccountRepository">
+
+    <select id="listAccounts" resultType="com.matt.entity.Account">
+        SELECT * FROM tb_account
+        <where>
+            <if test="req.creatorId != null">
+                AND created_by = #{req.creatorId}
+            </if>
+            <if test="req.userId != null">
+                AND user_id = #{req.userId}
+            </if>
+            <if test="req.coin != null and req.coin != ''">
+                AND coin LIKE CONCAT('%', #{req.coin}, '%')
+            </if>
+            <if test="req.amountMin != null">
+                AND amount &gt;= #{req.amountMin}
+            </if>
+            <if test="req.amountMax != null">
+                AND amount &lt;= #{req.amountMax}
+            </if>
+            <if test="req.createdAtAfter != null">
+                AND created_at &gt;= #{req.createdAtAfter}
+            </if>
+            <if test="req.createdAtBefore != null">
+                AND created_at &lt;= #{req.createdAtBefore}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+
+</mapper>
