@@ -9,7 +9,6 @@ import com.matt.dto.response.AccountResponse;
 import com.matt.dto.response.PagingResponse;
 import com.matt.entity.Account;
 
-import java.util.List;
 
 public interface AccountService extends IService<Account> {
     Long createAccount(AccountCreateRequest account);
@@ -17,4 +16,5 @@ public interface AccountService extends IService<Account> {
     Long deleteAccount(Long id);
     AccountResponse getAccountById(Long id);
     PagingResponse<AccountResponse> getAccountPage(PagingRequest<AccountQueryRequest> request);
+
 }
