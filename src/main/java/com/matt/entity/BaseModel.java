@@ -8,6 +8,10 @@ import lombok.Data;
 
 @Data
 public abstract class BaseModel {
+    public BaseModel() {
+        this.createdAt = System.currentTimeMillis();
+    }
+
     /**
      * Primary key ID with auto-increment
      */

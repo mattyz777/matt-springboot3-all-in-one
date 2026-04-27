@@ -12,12 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Slf4j
 @Service
 @AllArgsConstructor
 public class ProjectVersionServiceImpl extends ServiceImpl<ProjectVersionRepository, ProjectVersion> implements ProjectVersionService {
     private final OperationLogService operationLogService;
 
+    @Transactional(rollbackFor = Exception.class)
     public void createProjectVersion(String version) {
         log.info("createProjectVersion: {}",version );
 
@@ -31,8 +33,23 @@ public class ProjectVersionServiceImpl extends ServiceImpl<ProjectVersionReposit
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void createProjectVersionRollback(String version) {
-        log.info("createProjectVersionRollback: {}",version );
+    public void createProjectVersionRollbackAllTriggeredOnProjectVersion(String version) {
+        log.info("createProjectVersionRollbackAllTriggeredOnProjectVersion: {}",version );
+
+        operationLogService.createOperationLog(version);
+
+        ProjectVersion projectVersion = new ProjectVersion();
+        projectVersion.setVersion(version);
+        projectVersion.setCreatedBy(Constant.USER_ADMIN);
+
+        super.save(projectVersion);
+
+        throw new RuntimeException("");
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void createProjectVersionRollbackAllTriggeredOnOperationLog(String version) {
+        log.info("createProjectVersionRollbackAllTriggeredOnOperationLog: {}",version );
 
         ProjectVersion projectVersion = new ProjectVersion();
         projectVersion.setVersion(version);
@@ -47,7 +64,7 @@ public class ProjectVersionServiceImpl extends ServiceImpl<ProjectVersionReposit
     public void createProjectVersionRollbackPartialProject(String version) {
         log.info("createProjectVersionRollbackPartialProject: {}",version );
 
-        operationLogService.createOperationLogNewTransaction("create project version:" + version);
+        operationLogService.createOperationLogNewTransaction(version);
 
         ProjectVersion projectVersion = new ProjectVersion();
         projectVersion.setVersion(version);
@@ -70,6 +87,6 @@ public class ProjectVersionServiceImpl extends ServiceImpl<ProjectVersionReposit
 
         super.save(projectVersion);
 
-        operationLogService.createOperationLogNewTransactionRollback("create project version:" + version);
+        operationLogService.createOperationLogNewTransactionRollback(version);
     }
 }
